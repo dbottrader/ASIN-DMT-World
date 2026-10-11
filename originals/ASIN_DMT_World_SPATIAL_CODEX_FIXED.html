@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ASIN • DMT World — Spatial Codex</title>
+<style>
+:root{--bg:#03050b;--panel:#0a0f1b;--line:#1c2a42;--ink:#e9f8ff;--mut:#8faabd;--cyan:#70f6df;--violet:#aa8cff;--pink:#ff78d5;--gold:#ffd36a}
+*{box-sizing:border-box}html,body{margin:0;width:100%;min-height:100%;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,sans-serif}
+body{overflow-x:hidden}.app{min-height:100vh;background:radial-gradient(900px 500px at 50% -10%,#18264c,transparent 65%),#03050b}
+header{height:70px;padding:13px 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px;background:#03050be8;backdrop-filter:blur(12px)}
+.sigil{font-size:27px;color:var(--cyan);text-shadow:0 0 25px #4de0ca}h1{font-size:17px;margin:0;letter-spacing:.09em}header small{color:var(--mut);font-size:10px}.badge{margin-left:auto;border:1px solid #397a68;color:#8fffc8;background:#092219;border-radius:99px;padding:5px 9px;font-size:9px;font-weight:900}
+.layout{max-width:1550px;margin:auto;padding:12px;display:grid;grid-template-columns:220px minmax(0,1fr) 265px;gap:12px}
+@media(max-width:1050px){.layout{grid-template-columns:1fr}.left,.right{position:static!important}.left{order:2}.right{order:3}}
+.card{background:#090f1bfa;border:1px solid var(--line);border-radius:14px;box-shadow:0 14px 45px #0008;overflow:hidden}.head{padding:10px 12px;border-bottom:1px solid var(--line);font-size:9px;letter-spacing:.15em;font-weight:900;color:#cce4ee;text-transform:uppercase}.pad{padding:11px}
+.left,.right{position:sticky;top:82px;align-self:start}.navbtn{display:block;width:100%;margin-bottom:6px;text-align:left;background:#080f1b;color:#8da8b7;border:1px solid #17263b;border-radius:9px;padding:9px;font-size:10px;font-weight:800}.navbtn.active{background:#10332f;color:#dffff5;border-color:#3d8a76}
+.navbtn span{display:block;color:#627d8d;font-size:9px;font-weight:500;margin-top:2px}.row{display:flex;gap:6px}.row>*{flex:1}button{cursor:pointer}button.action{background:#102137;border:1px solid #2b4765;color:var(--ink);border-radius:8px;padding:9px 7px;font-size:10px;font-weight:850}button.action:hover{background:#18324b}button.primary{background:#123b35;border-color:#3d8e78;color:#baffea}
+.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:5px}.tabs button{background:#080f1b;color:#7893a2;border:1px solid #182a40;border-radius:8px;padding:8px 3px;font-size:8px;font-weight:900}.tabs button.active{background:#17234a;color:#e9e1ff;border-color:#8a70d0}
+.control{margin-top:10px}.label{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:#a6bdc9;font-weight:850;margin-bottom:5px}.label b{float:right;color:var(--cyan)}input[type=range]{width:100%;accent-color:var(--cyan)}
+#stageCard{position:relative;min-width:0}.stage{position:relative;width:100%;height:clamp(480px,70vh,760px);overflow:hidden;background:#02040a}
+#world{position:absolute;inset:0;width:100%;height:100%;display:block}
+.hud{position:absolute;inset:0;pointer-events:none}.hudbox{position:absolute;background:#02060dcc;border:1px solid #203a54;border-radius:8px;padding:7px 9px;font:9px ui-monospace,monospace;color:#8fb4c4;backdrop-filter:blur(8px)}.tl{top:10px;left:10px}.tr{top:10px;right:10px;text-align:right}.bl{bottom:10px;left:10px}.br{bottom:10px;right:10px;text-align:right}
+.centerMark{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:18px;height:18px;border:1px solid #9ffff0;border-radius:50%;box-shadow:0 0 25px #65f7df66;opacity:.7}.centerMark:after{content:"";position:absolute;left:50%;top:-13px;width:1px;height:44px;background:#70f6df55}.centerMark:before{content:"";position:absolute;top:50%;left:-13px;width:44px;height:1px;background:#70f6df55}
+.status{padding:8px 11px;border-top:1px solid var(--line);display:flex;justify-content:space-between;color:#718b9a;font:9px ui-monospace,monospace}
+.metrics{display:grid;grid-template-columns:1fr 1fr;gap:6px}.metric{background:#060d17;border:1px solid #172a40;border-radius:8px;padding:7px}.metric b{display:block;font:800 17px ui-monospace,monospace}.metric span{font-size:8px;color:#6f8796;letter-spacing:.08em}
+.log{height:160px;overflow:auto;background:#030811;border:1px solid #17283d;border-radius:8px;padding:7px;font:9px/1.5 ui-monospace,monospace;color:#8da8b6}.ok{color:#80ffb2}.warn{color:var(--gold)}
+.file{width:100%;font-size:9px;color:#8da8b6}.hash{word-break:break-all;color:#8fdcff}
+footer{text-align:center;color:#526a79;font-size:9px;padding:12px}
+</style>
+</head>
+<body>
+<div class="app">
+<header><div class="sigil">◇⑤∞</div><div><h1>ASIN • DMT WORLD — SPATIAL CODEX</h1><small>Centered field renderer / phenomenology model / audit-first</small></div><div class="badge" id="state">READY</div></header>
+
+<div class="layout">
+<aside class="left">
+<div class="card"><div class="head">Codex</div><div class="pad">
+<button class="navbtn active" data-room="WORLD">◇ DMT WORLD<span>spatial field</span></button>
+<button class="navbtn" data-room="GLYPH">✶ GLYPH LAB<span>geometry engine</span></button>
+<button class="navbtn" data-room="LATTICE">∞ LATTICE<span>state space</span></button>
+<button class="navbtn" data-room="PROTOCOL">⊞ PROTOCOL<span>capture + hash</span></button>
+</div></div>
+<div class="card" style="margin-top:10px"><div class="head">Render</div><div class="pad">
+<div class="row"><button id="run" class="action primary">▶ RUN</button><button id="step" class="action">STEP</button></div>
+<div class="row" style="margin-top:6px"><button id="reset" class="action">RESET</button><button id="recenter" class="action">RECENTER</button></div>
+</div></div>
+</aside>
+
+<main>
+<div class="card" id="stageCard">
+<div class="stage" id="stage"><canvas id="world"></canvas>
+<div class="hud">
+<div class="hudbox tl">ASIN-DMW-0.2<br>FIELD / <b id="room">WORLD</b></div>
+<div class="hudbox tr">FPS <b id="fps">0</b><br>FRAME <b id="frame">0</b></div>
+<div class="centerMark"></div>
+<div class="hudbox bl">CENTER LOCKED<br><span id="coords">0.000 / 0.000</span></div>
+<div class="hudbox br">DEPTH <b id="hd">0.55</b><br>PHASE <b id="hp">0.00</b></div>
+</div></div>
+<div class="status"><span id="status">Canvas initialized • centered spatial coordinates</span><span>VISUAL MODEL ONLY</span></div>
+</div>
+
+<div class="card" style="margin-top:10px"><div class="head">Field Controls</div><div class="pad">
+<div class="tabs"><button class="active" data-geo="0">CHRYS</button><button data-geo="1">METATRON</button><button data-geo="2">FLOWER</button><button data-geo="3">SPIRAL</button></div>
+<div class="control"><div class="label">Depth <b id="depthOut">0.55</b></div><input id="depth" type="range" min="0" max="100" value="55"></div>
+<div class="control"><div class="label">Entity-like density <b id="densityOut">0.38</b></div><input id="density" type="range" min="0" max="100" value="38"></div>
+<div class="control"><div class="label">Symmetry <b id="symOut">0.72</b></div><input id="sym" type="range" min="0" max="100" value="72"></div>
+<div class="control"><div class="label">Temporal complexity <b id="complexOut">0.58</b></div><input id="complex" type="range" min="0" max="100" value="58"></div>
+</div></div>
+
+<div class="card" id="protocol" style="margin-top:10px;display:none"><div class="head">Protocol Lock</div><div class="pad">
+<div class="row"><button id="capture" class="action primary">CAPTURE</button><button id="hash" class="action">SHA-256</button></div>
+<div class="control"><div class="label">Artifact state</div><div id="hashOut" class="log hash">No capture.</div></div>
+</div></div>
+</main>
+
+<aside class="right">
+<div class="card"><div class="head">Measurements</div><div class="pad"><div class="metrics">
+<div class="metric"><b id="m1">.72</b><span>SYMMETRY</span></div><div class="metric"><b id="m2">.38</b><span>DENSITY</span></div>
+<div class="metric"><b id="m3">.55</b><span>DEPTH</span></div><div class="metric"><b id="m4">.00</b><span>COMPLEXITY</span></div>
+<div class="metric"><b id="m5">0.00</b><span>PHASE</span></div><div class="metric"><b id="m6">1.00</b><span>FIELD SCALE</span></div>
+</div></div></div>
+<div class="card" style="margin-top:10px"><div class="head">Codex Stream</div><div class="pad"><div id="log" class="log"></div></div></div>
+<div class="card" style="margin-top:10px"><div class="head">Formation Image</div><div class="pad">
+<input id="file" class="file" type="file" accept="image/*"><button id="analyze" class="action" style="width:100%;margin-top:7px">ANALYZE / CENTER</button>
+</div></div>
+</aside>
+</div>
+<footer>ASIN • CP8 • HarmonyOS Lattice Codex • The rendered field is a model; rendered forms are not claims of external entities.</footer>
+</div>
+
+<script>
+(()=>{"use strict";
+const $=id=>document.getElementById(id);
+const canvas=$("world"),ctx=canvas.getContext("2d",{alpha:false});
+let W=1,H=1,DPR=1,t=0,frame=0,running=false,raf=0,last=0,geo=0,particles=[],captured=null;
+
+function log(s,c){let d=document.createElement("div");d.textContent="["+new Date().toLocaleTimeString()+"] "+s;if(c)d.className=c;$("log").appendChild(d);$("log").scrollTop=$("log").scrollHeight}
+function vals(){return{depth:+$("depth").value/100,density:+$("density").value/100,sym:+$("sym").value/100,complex:+$("complex").value/100}}
+function seed(){particles=[];let v=vals(),n=140+Math.round(v.density*760);for(let i=0;i<n;i++)particles.push({a:Math.random()*6.283,r:Math.random(),z:Math.random(),s:.25+Math.random()*1.8,p:Math.random()*6.283})}
+function resize(){
+ const r=$("stage").getBoundingClientRect();
+ W=Math.max(320,Math.floor(r.width));H=Math.max(420,Math.floor(r.height));
+ DPR=Math.min(window.devicePixelRatio||1,2);
+ canvas.width=Math.round(W*DPR);canvas.height=Math.round(H*DPR);
+ canvas.style.width=W+"px";canvas.style.height=H+"px";
+ ctx.setTransform(DPR,0,0,DPR,0,0);
+ draw();
+}
+function draw(){
+ let v=vals(),cx=W/2,cy=H/2,min=Math.min(W,H),R=min*(.22+.20*v.depth);
+ ctx.fillStyle="#02040a";ctx.fillRect(0,0,W,H);
+ // All geometry is explicitly centered at canvas midpoint.
+ for(let i=0;i<38;i++){let z=i/38,r=min*.54/(1+z*(2+v.depth*9));ctx.strokeStyle="hsla("+(185+t*18+i*9)+",90%,68%,"+((1-z)*.17)+")";ctx.lineWidth=1;ctx.beginPath();ctx.arc(cx,cy,r,0,6.283);ctx.stroke()}
+ for(let p of particles){let z=(p.z+t*p.s*(.12+v.depth))%1,sc=1/(1+z*5),r=min*.48*p.r*sc,a=p.a+t*(.08+v.complex*.72),x=cx+r*Math.cos(a),y=cy+r*Math.sin(a);ctx.fillStyle="hsla("+(220+t*28+p.p*40)+",95%,72%,"+((1-z)*v.density*.78)+")";ctx.beginPath();ctx.arc(x,y,(1+4*sc)*(1+v.complex*.4),0,6.283);ctx.fill()}
+ ctx.save();ctx.translate(cx,cy);ctx.rotate(t*(.025+v.complex*.22));
+ if(geo===0)chrys(R,v);else if(geo===1)meta(R,v);else if(geo===2)flower(R,v);else spiral(R,v);
+ ctx.restore();
+ let g=ctx.createRadialGradient(cx,cy,0,cx,cy,R*.85);g.addColorStop(0,"hsla("+(185+t*35)+",100%,90%,.72)");g.addColorStop(1,"transparent");ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+ $("hd").textContent=v.depth.toFixed(2);$("hp").textContent=((t%6.283)/3.14159).toFixed(2);$("coords").textContent="0.000 / 0.000";
+ $("m1").textContent=v.sym.toFixed(2);$("m2").textContent=v.density.toFixed(2);$("m3").textContent=v.depth.toFixed(2);$("m4").textContent=v.complex.toFixed(2);$("m5").textContent=((t%6.283)/3.14159).toFixed(2);$("m6").textContent=(R/min).toFixed(2)
+}
+function chrys(R,v){let n=12+Math.round(v.sym*22);ctx.strokeStyle="hsla("+(285+t*18)+",100%,78%,.55)";for(let l=0;l<7;l++){let r=R*(1-l/8);for(let i=0;i<n;i++){let a=i/n*6.283+t*.45+l*.24,b=(i+1)/n*6.283+t*.45+l*.24;ctx.beginPath();ctx.moveTo(0,0);ctx.quadraticCurveTo(r*1.18*Math.cos((a+b)/2),r*1.18*Math.sin((a+b)/2),r*Math.cos(b),r*Math.sin(b));ctx.stroke()}}}
+function meta(R,v){let p=[{x:0,y:0}];for(let i=0;i<12;i++){let a=i/12*6.283;p.push({x:R*Math.cos(a),y:R*Math.sin(a)})}ctx.strokeStyle="hsla("+(175+t*20)+",100%,75%,.38)";for(let i=0;i<p.length;i++)for(let j=i+1;j<p.length;j++){ctx.beginPath();ctx.moveTo(p[i].x,p[i].y);ctx.lineTo(p[j].x,p[j].y);ctx.stroke()}p.forEach(q=>{ctx.beginPath();ctx.arc(q.x,q.y,3+v.sym*5,0,6.283);ctx.stroke()})}
+function flower(R,v){let rr=R/3*(.8+v.sym*.3);ctx.strokeStyle="hsla("+(135+t*20)+",100%,75%,.55)";for(let i=0;i<7;i++){let a=i/6*6.283,x=i?2*rr*Math.cos(a):0,y=i?2*rr*Math.sin(a):0;ctx.beginPath();ctx.arc(x,y,rr,0,6.283);ctx.stroke()}}
+function spiral(R,v){ctx.strokeStyle="hsla("+(315+t*18)+",100%,78%,.6)";ctx.lineWidth=1.3;ctx.beginPath();for(let i=0;i<900;i++){let q=i/899,a=q*22*3.14159,r=R*q**.72,x=r*Math.cos(a),y=r*Math.sin(a);i?ctx.lineTo(x,y):ctx.moveTo(x,y)}ctx.stroke()}
+function loop(now){if(!running)return;let dt=Math.min(.05,(now-last)/1000||.016);last=now;t+=dt;frame++;$("fps").textContent=Math.round(1/dt);$("frame").textContent=frame;draw();raf=requestAnimationFrame(loop)}
+function start(){if(running)return;running=true;$("run").textContent="⏸ PAUSE";$("state").textContent="RUNNING";last=performance.now();raf=requestAnimationFrame(loop);log("RUN started","ok")}
+function stop(){running=false;if(raf)cancelAnimationFrame(raf);raf=0;$("run").textContent="▶ RUN";$("state").textContent="READY";log("RUN paused")}
+$("run").onclick=()=>running?stop():start();
+$("step").onclick=()=>{if(running)stop();t+=.016;frame++;draw();log("Single frame rendered")}
+$("reset").onclick=()=>{stop();t=0;frame=0;seed();draw();log("State reset")}
+$("recenter").onclick=()=>{resize();log("Spatial origin recentered at viewport midpoint","ok")}
+["depth","sym","complex"].forEach(id=>$(id).oninput=()=>draw());
+$("density").oninput=()=>{seed();draw()};
+document.querySelectorAll("[data-geo]").forEach(b=>b.onclick=()=>{document.querySelectorAll("[data-geo]").forEach(x=>x.classList.remove("active"));b.classList.add("active");geo=+b.dataset.geo;draw();log("Geometry: "+["Chrysanthemum","Metatron","Flower of Life","Spiral"][geo])});
+document.querySelectorAll("[data-room]").forEach(b=>b.onclick=()=>{document.querySelectorAll("[data-room]").forEach(x=>x.classList.remove("active"));b.classList.add("active");let r=b.dataset.room;$("room").textContent=r;$("protocol").style.display=r==="PROTOCOL"?"block":"none";log("Codex room: "+r)});
+$("capture").onclick=()=>{captured={...vals(),geometry:geo,frame,time:+t.toFixed(6)};$("hashOut").textContent=JSON.stringify(captured,null,2);log("State captured","ok")};
+$("hash").onclick=async()=>{if(!captured){log("Capture a state first","warn");return}let h=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(JSON.stringify(captured)));$("hashOut").textContent=[...new Uint8Array(h)].map(x=>x.toString(16).padStart(2,"0")).join("");log("SHA-256 generated","ok")};
+$("analyze").onclick=()=>{let f=$("file").files[0];if(!f){log("No image selected","warn");return}let im=new Image();im.onload=()=>{let s=$("stage"),pad=30,iw=im.naturalWidth,ih=im.naturalHeight,scale=Math.min((s.clientWidth-pad*2)/iw,(s.clientHeight-pad*2)/ih),x=(s.clientWidth-iw*scale)/2,y=(s.clientHeight-ih*scale)/2;ctx.save();ctx.globalAlpha=.9;ctx.drawImage(im,x,y,iw*scale,ih*scale);ctx.restore();log("Formation image centered in visual field","ok")};im.src=URL.createObjectURL(f)};
+new ResizeObserver(resize).observe($("stage"));window.addEventListener("resize",resize);seed();resize();log("Spatial Codex initialized","ok");log("Origin = viewport center; renderer uses CSS pixels + DPR transform");
+})();
+</script>
+</body>
+</html>

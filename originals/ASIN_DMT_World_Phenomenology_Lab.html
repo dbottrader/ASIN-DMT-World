@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ASIN • DMT World — Phenomenology Lab</title>
+<style>
+:root{--bg:#070b16;--panel:#0d1527;--line:#20304e;--ink:#e8f7ff;--mut:#9eb9c8;--a:#7fe6c9}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 500px at 50% 0,#172548,#070b16 65%);color:var(--ink);font:14px system-ui,sans-serif}
+header{padding:20px;border-bottom:1px solid var(--line)}h1{margin:0;font-size:22px}header p{margin:5px 0;color:var(--mut);font-size:12px}
+main{max-width:1200px;margin:auto;padding:14px;display:grid;gap:14px}.grid{display:grid;grid-template-columns:1.4fr .8fr;gap:14px}@media(max-width:800px){.grid{grid-template-columns:1fr}}
+.card{background:#0d1527dd;border:1px solid var(--line);border-radius:14px;overflow:hidden}.head{padding:11px 13px;border-bottom:1px solid var(--line);font-weight:800;letter-spacing:.08em;font-size:12px}.pad{padding:13px}
+canvas{width:100%;height:520px;display:block;background:#050a15}.controls{display:grid;gap:12px}.control{display:grid;gap:5px}.label{font-size:11px;color:#cfe8f2;text-transform:uppercase;font-weight:800}.value{color:var(--a);float:right}
+input[type=range]{width:100%;accent-color:var(--a)}button{border:1px solid #31516e;background:#112438;color:var(--ink);padding:10px 12px;border-radius:9px;font-weight:700;cursor:pointer}button:hover{background:#18334c}.active{border-color:#56d9ad;background:#173c35}
+.row{display:flex;gap:8px;flex-wrap:wrap}.metric{background:#091221;border:1px solid #1c304b;border-radius:9px;padding:9px;min-width:120px}.metric b{display:block;font-size:18px}.metric span{color:var(--mut);font-size:10px}
+.log{height:130px;overflow:auto;background:#08101d;border:1px solid #19304a;border-radius:9px;padding:9px;font:11px ui-monospace,monospace;color:#b9d5df}.note{font-size:11px;color:var(--mut)}
+</style></head><body>
+<header><h1>◇ ASIN • DMT WORLD — PHENOMENOLOGY LAB</h1>
+<p>Interactive visualization of reported psychedelic phenomenology • simulation only • no claim of literal hyperspace</p></header>
+<main><div class="grid">
+<section class="card"><div class="head">VISUAL FIELD</div><canvas id="field"></canvas></section>
+<aside class="card"><div class="head">EXPERIMENT CONTROLS</div><div class="pad controls">
+<div class="row"><button id="run" onclick="toggle()">▶ RUN</button><button onclick="resetLab()">↺ RESET</button></div>
+<div class="control"><div class="label">Geometry <span class="value" id="go">Chrysanthemum</span></div><input id="g" type="range" min="0" max="2" value="0" oninput="controls()"></div>
+<div class="control"><div class="label">Depth <span class="value" id="do">50%</span></div><input id="d" type="range" min="0" max="100" value="50" oninput="controls()"></div>
+<div class="control"><div class="label">Entity-like Density <span class="value" id="eo">30%</span></div><input id="e" type="range" min="0" max="100" value="30" oninput="controls()"></div>
+<div class="control"><div class="label">Symmetry <span class="value" id="so">70%</span></div><input id="s" type="range" min="0" max="100" value="70" oninput="controls()"></div>
+<div class="control"><div class="label">Temporal Complexity <span class="value" id="co">50%</span></div><input id="c" type="range" min="0" max="100" value="50" oninput="controls()"></div>
+<p class="note">“Entity-like” describes visual complexity resembling reported encounters; it does not assert independent entities.</p>
+</div></aside></div>
+<section class="card"><div class="head">MEASUREMENT LAYER</div><div class="pad"><div class="row">
+<div class="metric"><b id="ms">0.70</b><span>SYMMETRY INDEX</span></div>
+<div class="metric"><b id="mh">0.00</b><span>VISUAL ENTROPY</span></div>
+<div class="metric"><b id="me">0.30</b><span>PARTICLE DENSITY</span></div>
+<div class="metric"><b id="md">0.50</b><span>DEPTH PARAMETER</span></div>
+<div class="metric"><b id="mp">0.00</b><span>PHASE</span></div>
+</div></div></section>
+<section class="card"><div class="head">AUDIT LOG</div><div class="pad"><div id="log" class="log"></div>
+<p class="note">Protocol: define parameters before observation; visualization does not determine interpretation.</p></div></section>
+</main>
+<script>
+const C=document.getElementById("field"),X=C.getContext("2d");let W,H,D=1,t=0,run=false,raf=0,parts=[];
+const names=["Chrysanthemum","Metatron","Flower of Life"];
+function size(){D=Math.min(devicePixelRatio||1,2);W=C.clientWidth;H=520;C.width=W*D;C.height=H*D;X.setTransform(D,0,0,D,0,0)}window.onresize=size;size();
+function controls(){go.textContent=names[+g.value];do.textContent=d.value+"%";eo.textContent=e.value+"%";so.textContent=s.value+"%";co.textContent=c.value+"%";ms.textContent=(s.value/100).toFixed(2);me.textContent=(e.value/100).toFixed(2);md.textContent=(d.value/100).toFixed(2);seed()}
+function seed(){parts=[];let n=80+Math.floor(+e.value*7);for(let i=0;i<n;i++)parts.push({a:Math.random()*6.283,r:Math.random(),z:Math.random(),v:.3+Math.random()*1.7,p:Math.random()*6.283})}
+function lg(q){let z=document.createElement("div");z.textContent="["+new Date().toLocaleTimeString()+"] "+q;log.appendChild(z);log.scrollTop=99999}
+function toggle(){run=!run;run.textContent=run?"⏸ PAUSE":"▶ RUN";run.classList.toggle("active",run);if(run){lg("Visualization started.");raf=requestAnimationFrame(loop)}else{cancelAnimationFrame(raf);lg("Visualization paused.")}}
+function resetLab(){run=false;cancelAnimationFrame(raf);run.textContent="▶ RUN";run.classList.remove("active");t=0;seed();draw();lg("Protocol reset.")}
+function loop(){if(!run)return;t+=.016;draw();raf=requestAnimationFrame(loop)}
+function draw(){
+let dep=+d.value/100,den=+e.value/100,sym=+s.value/100,cmp=+c.value/100,mode=+g.value,cx=W/2,cy=H/2;
+X.fillStyle="rgba(5,10,21,.20)";X.fillRect(0,0,W,H);
+for(let i=0;i<26;i++){let z=i/26,r=Math.min(W,H)*.48/(1+z*(2+dep*8));X.strokeStyle=`hsla(${190+t*18+i*11},90%,65%,${(1-z)*.2})`;X.beginPath();X.arc(cx,cy,r,0,6.283);X.stroke()}
+parts.forEach(p=>{let z=(p.z+t*p.v*(.2+dep))%1,sc=1/(1+z*5),r=Math.min(W,H)*.42*p.r*sc,a=p.a+t*(.1+cmp*.7),x=cx+r*Math.cos(a),y=cy+r*Math.sin(a);X.fillStyle=`hsla(${250+t*30+p.p*40},90%,70%,${(1-z)*den*.85})`;X.beginPath();X.arc(x,y,(1+3*sc)*(1+cmp*.5),0,6.283);X.fill()});
+X.save();X.translate(cx,cy);X.rotate(t*(.05+cmp*.2));let R=Math.min(W,H)*(.22+.16*dep);mode===0?chrys(R,sym):mode===1?meta(R,sym):flower(R,sym);X.restore();
+let G=X.createRadialGradient(cx,cy,0,cx,cy,110);G.addColorStop(0,`hsla(${190+t*35},100%,90%,${.45+.25*Math.sin(t*2)})`);G.addColorStop(1,"transparent");X.fillStyle=G;X.fillRect(0,0,W,H);mh.textContent=(den*.35+cmp*.35+(1-sym)*.3).toFixed(2);mp.textContent=((t%6.283)/3.142).toFixed(2)}
+function chrys(R,s){let n=8+Math.round(s*20);X.strokeStyle=`hsla(${290+t*20},90%,75%,.55)`;for(let l=0;l<6;l++)for(let i=0;i<n;i++){let r=R*(1-l/7),a=i/n*6.283+t*.5+l*.3,b=(i+1)/n*6.283+t*.5+l*.3;X.beginPath();X.moveTo(0,0);X.lineTo(r*Math.cos(a),r*Math.sin(a));X.stroke();X.beginPath();X.arc(0,0,r,.0,b-a);X.stroke()}}
+function meta(R,s){let p=[{x:0,y:0}];for(let i=0;i<12;i++){let a=i/12*6.283;p.push({x:R*Math.cos(a),y:R*Math.sin(a)})}X.strokeStyle=`hsla(${180+t*25},90%,70%,.38)`;for(let i=0;i<p.length;i++)for(let j=i+1;j<p.length;j++){X.beginPath();X.moveTo(p[i].x,p[i].y);X.lineTo(p[j].x,p[j].y);X.stroke()}p.forEach(q=>{X.beginPath();X.arc(q.x,q.y,3+s*4,0,6.283);X.stroke()})}
+function flower(R,s){let rr=R/3.5*(.8+s*.3);X.strokeStyle=`hsla(${140+t*20},90%,75%,.5)`;for(let i=0;i<7;i++){let a=i/6*6.283,x=i?rr*2*Math.cos(a):0,y=i?rr*2*Math.sin(a):0;X.beginPath();X.arc(x,y,rr,0,6.283);X.stroke()}}
+controls();seed();draw();lg("Lab initialized. Interpretation is not hard-coded.");
+</script></body></html>

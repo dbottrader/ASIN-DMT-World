@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ASIN • DMT World / Codex Resonance Engine</title>
+<style>
+:root{
+ --bg:#05070d;--panel:#0a0f1b;--panel2:#0d1423;--line:#1b2b43;
+ --ink:#e9f8ff;--mut:#8faabd;--cyan:#70f6df;--violet:#a58cff;
+ --pink:#ff7bd8;--gold:#ffd36a;--red:#ff7272;--green:#7dffad;
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}
+body{overflow-x:hidden}
+button,input,select{font:inherit}
+button{cursor:pointer}
+.app{min-height:100vh;background:
+ radial-gradient(900px 500px at 50% -15%,#1a2148 0,transparent 68%),
+ radial-gradient(600px 400px at 100% 30%,#162c35 0,transparent 65%)}
+header{padding:18px 20px 14px;border-bottom:1px solid var(--line);background:rgba(4,7,14,.72);backdrop-filter:blur(14px);position:sticky;top:0;z-index:10}
+.brand{display:flex;align-items:center;gap:12px}.sigil{font-size:30px;color:var(--cyan);text-shadow:0 0 24px #50e6cf}
+h1{font-size:19px;margin:0;letter-spacing:.08em}.sub{font-size:11px;color:var(--mut);margin-top:2px}
+.badge{margin-left:auto;padding:5px 9px;border:1px solid #2d735f;border-radius:99px;color:var(--green);background:#0b211a;font-size:10px;font-weight:800;letter-spacing:.1em}
+.shell{max-width:1500px;margin:auto;padding:14px;display:grid;grid-template-columns:250px minmax(0,1fr) 300px;gap:14px}
+@media(max-width:1100px){.shell{grid-template-columns:1fr}.nav,.right{display:block}}
+.card{background:linear-gradient(180deg,rgba(15,22,38,.96),rgba(8,13,24,.96));border:1px solid var(--line);border-radius:15px;overflow:hidden;box-shadow:0 12px 40px #0007}
+.head{padding:11px 13px;border-bottom:1px solid var(--line);font-size:10px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;color:#cfe7f3}
+.pad{padding:12px}
+.nav{align-self:start;position:sticky;top:82px}.nav button{width:100%;text-align:left;margin-bottom:7px;background:#0a1220;border:1px solid #172942;color:#9fb7c5;padding:11px;border-radius:10px;font-weight:750}
+.nav button.active{color:var(--ink);border-color:#3c766b;background:linear-gradient(90deg,#123a35,#111a2a)}
+.nav small{display:block;color:#627f91;margin-top:2px;font-weight:500}
+.section{margin-top:12px}.label{font-size:10px;color:#a8c1cf;font-weight:850;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
+.row{display:flex;gap:7px;flex-wrap:wrap}.row>*{flex:1}
+button.action{border:1px solid #2c4a68;background:#102238;color:#e9f8ff;border-radius:9px;padding:9px 10px;font-weight:800}
+button.action:hover{background:#17304a;border-color:#47708f}
+button.primary{border-color:#3b8f7b;background:#123b35;color:#baffea}
+button.danger{border-color:#75474d;background:#29151a}
+select,input[type=file]{width:100%;background:#0a1524;border:1px solid #27405d;color:var(--ink);border-radius:8px;padding:8px}
+input[type=range]{width:100%;accent-color:var(--cyan)}
+.stage{position:relative}.stage canvas{display:block;width:100%;height:min(67vh,680px);min-height:420px;background:#02050b}
+.overlay{position:absolute;inset:0;pointer-events:none;display:flex;justify-content:space-between;align-items:flex-start;padding:12px}
+.overlay .chip{background:#050a12c9;border:1px solid #27415b;border-radius:8px;padding:7px 9px;font:10px ui-monospace,monospace;color:#9dc0d0;backdrop-filter:blur(8px)}
+.bottom{padding:10px 12px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:10px;color:var(--mut);font-size:10px}
+.metricgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:7px}
+.metric{background:#07101c;border:1px solid #182b42;border-radius:9px;padding:8px}.metric b{font:800 18px ui-monospace,monospace}.metric span{display:block;color:#718c9c;font-size:9px;letter-spacing:.08em;margin-top:2px}
+.log{height:180px;overflow:auto;background:#040a12;border:1px solid #172c44;border-radius:9px;padding:8px;font:10px/1.55 ui-monospace,monospace;color:#9eb8c6}
+.log div{margin:2px 0}.ok{color:var(--green)}.warn{color:var(--gold)}.hash{word-break:break-all;color:#8ed7ff}
+.tabs{display:flex;gap:5px}.tabs button{flex:1;padding:8px 5px;background:#091321;border:1px solid #1b3049;color:#7895a5;border-radius:8px;font-size:10px;font-weight:800}.tabs button.active{color:var(--ink);border-color:#3b7669;background:#10342f}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:6px 9px;font-size:11px;color:var(--mut)}.kv b{color:var(--ink);text-align:right}
+.protocol{font-size:10px;line-height:1.5;color:#87a4b4;background:#07101b;border:1px solid #172a40;padding:9px;border-radius:9px}
+footer{text-align:center;color:#5f7786;font-size:10px;padding:15px}
+.hidden{display:none!important}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+ <div class="brand">
+  <div class="sigil">◇⑤∞</div>
+  <div><h1>ASIN • DMT WORLD / CODEX RESONANCE ENGINE</h1><div class="sub">Phenomenology visualization • deterministic controls • audit-first rendering</div></div>
+  <div class="badge" id="runState">READY</div>
+ </div>
+</header>
+
+<div class="shell">
+<aside class="nav card">
+ <div class="head">Codex Rooms</div><div class="pad">
+  <button class="active" data-view="world">◇ DMT WORLD <small>live phenomenology field</small></button>
+  <button data-view="glyph">✶ GLYPH LAB <small>symmetry + geometry</small></button>
+  <button data-view="lattice">∞ LATTICE <small>state-space navigator</small></button>
+  <button data-view="protocol">⊞ PROTOCOL <small>freeze + hash run</small></button>
+  <div class="section protocol">
+   <b>Singularity rule</b><br>
+   The display is an experimental model. “Entities” are rendered structures, not evidence of independent beings.
+  </div>
+ </div>
+</aside>
+
+<main>
+<section class="card stage">
+ <canvas id="canvas"></canvas>
+ <div class="overlay">
+  <div class="chip">MODE: <b id="modeText">DMT WORLD</b><br>ENGINE: ASIN-RX / TSH-0.1</div>
+  <div class="chip">FPS <b id="fps">0</b><br>FRAME <b id="frame">0</b></div>
+ </div>
+ <div class="bottom"><span id="status">Initialized • waiting for RUN</span><span>◇ LATTICE / BRIDGE</span></div>
+</section>
+
+<section class="card">
+ <div class="head">Control Surface</div><div class="pad">
+  <div class="tabs">
+   <button class="active" data-geo="0">CHRYSANTHEMUM</button>
+   <button data-geo="1">METATRON</button>
+   <button data-geo="2">FLOWER</button>
+   <button data-geo="3">SPIRAL</button>
+  </div>
+  <div class="section row">
+   <button id="run" class="action primary">▶ RUN</button>
+   <button id="step" class="action">STEP</button>
+   <button id="reset" class="action danger">RESET</button>
+  </div>
+  <div class="section">
+   <div class="label">Depth <b id="depthV">0.55</b></div><input id="depth" type="range" min="0" max="100" value="55">
+  </div>
+  <div class="section">
+   <div class="label">Entity-like density <b id="densityV">0.38</b></div><input id="density" type="range" min="0" max="100" value="38">
+  </div>
+  <div class="section">
+   <div class="label">Symmetry constraint <b id="symV">0.72</b></div><input id="sym" type="range" min="0" max="100" value="72">
+  </div>
+  <div class="section">
+   <div class="label">Temporal complexity <b id="complexV">0.58</b></div><input id="complex" type="range" min="0" max="100" value="58">
+  </div>
+  <div class="section">
+   <div class="label">Frequency label</div>
+   <div class="row">
+    <button class="action freq" data-f="432">432 Hz</button><button class="action freq" data-f="528">528 Hz</button><button class="action freq" data-f="963">963 Hz</button>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section id="protocolPanel" class="card hidden">
+ <div class="head">Protocol / Artifact Lock</div><div class="pad">
+  <div class="row"><button id="capture" class="action primary">CAPTURE STATE</button><button id="hash" class="action">HASH CAPTURE</button></div>
+  <div class="section kv"><span>Protocol</span><b>ASIN-DMW-0.1</b><span>Geometry</span><b id="lockGeo">Chrysanthemum</b><span>Frequency</span><b id="lockFreq">528 Hz</b><span>Frame</span><b id="lockFrame">0</b></div>
+  <div class="section"><div class="label">SHA-256</div><div id="hashOut" class="log hash">No capture hashed.</div></div>
+ </div>
+</section>
+</main>
+
+<aside class="right">
+<section class="card">
+ <div class="head">Live Measurements</div><div class="pad">
+  <div class="metricgrid">
+   <div class="metric"><b id="mSym">.72</b><span>SYMMETRY</span></div>
+   <div class="metric"><b id="mEnt">.00</b><span>COMPLEXITY</span></div>
+   <div class="metric"><b id="mDen">.38</b><span>DENSITY</span></div>
+   <div class="metric"><b id="mDepth">.55</b><span>DEPTH</span></div>
+   <div class="metric"><b id="mPhase">0.00</b><span>PHASE</span></div>
+   <div class="metric"><b id="mRadius">0.00</b><span>FIELD R</span></div>
+  </div>
+ </div>
+</section>
+
+<section class="card section">
+ <div class="head">Codex Stream</div><div class="pad">
+  <div id="log" class="log"></div>
+ </div>
+</section>
+
+<section class="card section">
+ <div class="head">Formation Input</div><div class="pad">
+  <input id="image" type="file" accept="image/*">
+  <button id="analyze" class="action" style="width:100%;margin-top:7px">ANALYZE IMAGE FIELD</button>
+  <div id="imageResult" class="section kv"><span>Image</span><b>—</b><span>Pixels sampled</span><b>—</b><span>Contrast</span><b>—</b><span>Radial variance</span><b>—</b></div>
+ </div>
+</section>
+</aside>
+</div>
+<footer>ASIN • CP8 • HarmonyOS Lattice Codex • Visual simulation only • measurements describe the model, not the ontology</footer>
+</div>
+
+<script>
+(()=>{
+"use strict";
+const $=id=>document.getElementById(id);
+const canvas=$("canvas"),ctx=canvas.getContext("2d",{alpha:false});
+let W=1,H=1,DPR=1,raf=0,running=false,t=0,frame=0,last=0,fps=0,geo=0,freq=528,particles=[],captureState=null;
+
+const state=()=>({
+ protocol:"ASIN-DMW-0.1", geometry:["Chrysanthemum","Metatron","Flower of Life","Spiral"][geo],
+ depth:+$("depth").value/100,density:+$("density").value/100,sym:+$("sym").value/100,
+ complexity:+$("complex").value/100,frequency:freq,frame,time:+t.toFixed(6)
+});
+
+function log(s,cls=""){let d=document.createElement("div");d.textContent="["+new Date().toLocaleTimeString()+"] "+s;if(cls)d.className=cls;$("log").appendChild(d);$("log").scrollTop=$("log").scrollHeight}
+function resize(){let r=canvas.getBoundingClientRect();W=Math.max(300,r.width);H=Math.max(420,r.height);DPR=Math.min(devicePixelRatio||1,2);canvas.width=W*DPR;canvas.height=H*DPR;ctx.setTransform(DPR,0,0,DPR,0,0);draw()}
+function seed(){particles=[];let n=120+Math.round(state().density*880);for(let i=0;i<n;i++)particles.push({a:Math.random()*Math.PI*2,r:Math.random(),z:Math.random(),s:.25+Math.random()*1.8,p:Math.random()*6.28})}
+function labels(){let s=state();$("depthV").textContent=s.depth.toFixed(2);$("densityV").textContent=s.density.toFixed(2);$("symV").textContent=s.sym.toFixed(2);$("complexV").textContent=s.complexity.toFixed(2);$("mSym").textContent=s.sym.toFixed(2);$("mDen").textContent=s.density.toFixed(2);$("mDepth").textContent=s.depth.toFixed(2);$("mEnt").textContent=(s.density*.35+s.complexity*.4+(1-s.sym)*.25).toFixed(2);$("lockGeo").textContent=s.geometry;$("lockFreq").textContent=freq+" Hz";$("lockFrame").textContent=frame}
+function clear(){ctx.fillStyle="#02050b";ctx.fillRect(0,0,W,H)}
+function ring(cx,cy,r,a){ctx.strokeStyle="hsla("+(185+t*20)+",90%,70%,"+a+")";ctx.lineWidth=1;ctx.beginPath();ctx.arc(cx,cy,r,0,Math.PI*2);ctx.stroke()}
+function draw(){
+ let s=state(),cx=W/2,cy=H/2,R=Math.min(W,H)*(.24+.18*s.depth);
+ clear();
+ for(let i=0;i<34;i++){let z=i/34,rr=Math.min(W,H)*.52/(1+z*(2+s.depth*9));ring(cx,cy,rr,(1-z)*.18)}
+ for(let p of particles){let z=(p.z+t*p.s*(.15+s.depth))%1,sc=1/(1+z*5),rr=Math.min(W,H)*.48*p.r*sc,a=p.a+t*(.08+s.complexity*.7);let x=cx+rr*Math.cos(a),y=cy+rr*Math.sin(a);ctx.fillStyle="hsla("+(220+t*25+p.p*35)+",95%,72%,"+((1-z)*s.density*.8)+")";ctx.beginPath();ctx.arc(x,y,(1.2+3.8*sc)*(1+s.complexity*.45),0,6.283);ctx.fill()}
+ ctx.save();ctx.translate(cx,cy);ctx.rotate(t*(.03+s.complexity*.22));if(geo===0)chrys(R,s);else if(geo===1)meta(R,s);else if(geo===2)flower(R,s);else spiral(R,s);ctx.restore();
+ let g=ctx.createRadialGradient(cx,cy,0,cx,cy,R*.8);g.addColorStop(0,"hsla("+(180+t*35)+",100%,90%,.7)");g.addColorStop(1,"transparent");ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+ $("mPhase").textContent=((t%(Math.PI*2))/Math.PI).toFixed(2);$("mRadius").textContent=(R/Math.min(W,H)).toFixed(2)
+}
+function chrys(R,s){let n=12+Math.round(s.sym*20);ctx.strokeStyle="hsla("+(280+t*18)+",100%,78%,.55)";for(let l=0;l<7;l++){let r=R*(1-l/8);for(let i=0;i<n;i++){let a=i/n*6.283+t*.45+l*.25,b=(i+1)/n*6.283+t*.45+l*.25;ctx.beginPath();ctx.moveTo(0,0);ctx.quadraticCurveTo(r*1.15*Math.cos((a+b)/2),r*1.15*Math.sin((a+b)/2),r*Math.cos(b),r*Math.sin(b));ctx.stroke()}}}
+function meta(R,s){let pts=[{x:0,y:0}];for(let i=0;i<12;i++){let a=i/12*6.283;pts.push({x:R*Math.cos(a),y:R*Math.sin(a)})}ctx.strokeStyle="hsla("+(170+t*20)+",100%,75%,.35)";for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);ctx.stroke()}for(let p of pts){ctx.beginPath();ctx.arc(p.x,p.y,3+s.sym*4,0,6.283);ctx.stroke()}}
+function flower(R,s){let rr=R/3*(.8+s.sym*.3);ctx.strokeStyle="hsla("+(130+t*20)+",100%,75%,.55)";for(let i=0;i<7;i++){let a=i/6*6.283,x=i?2*rr*Math.cos(a):0,y=i?2*rr*Math.sin(a):0;ctx.beginPath();ctx.arc(x,y,rr,0,6.283);ctx.stroke()}}
+function spiral(R,s){ctx.strokeStyle="hsla("+(310+t*18)+",100%,76%,.6)";ctx.lineWidth=1.4;ctx.beginPath();for(let i=0;i<700;i++){let q=i/699, a=q*20*Math.PI+t*.4,r=R*q**.72;let x=r*Math.cos(a),y=r*Math.sin(a);if(!i)ctx.moveTo(x,y);else ctx.lineTo(x,y)}ctx.stroke()}
+function loop(now){if(!running)return;let dt=Math.min(.05,(now-last)/1000||.016);last=now;t+=dt;frame++;fps=Math.round(1/dt);$("fps").textContent=fps;$("frame").textContent=frame;draw();raf=requestAnimationFrame(loop)}
+function run(){if(running)return;running=true;$("run").textContent="⏸ PAUSE";$("runState").textContent="RUNNING";$("status").textContent="Live render • single RAF loop";last=performance.now();raf=requestAnimationFrame(loop);log("RUN started","ok")}
+function pause(){running=false;if(raf)cancelAnimationFrame(raf);raf=0;$("run").textContent="▶ RUN";$("runState").textContent="READY";$("status").textContent="Paused";log("RUN paused")}
+$("run").onclick=()=>running?pause():run();
+$("step").onclick=()=>{if(running)pause();t+=.016;frame++;draw();labels();log("Single frame advanced")}
+$("reset").onclick=()=>{pause();t=0;frame=0;seed();labels();draw();log("State reset")}
+document.querySelectorAll("[data-geo]").forEach(b=>b.onclick=()=>{document.querySelectorAll("[data-geo]").forEach(x=>x.classList.remove("active"));b.classList.add("active");geo=+b.dataset.geo;labels();draw();log("Geometry set: "+state().geometry)})
+["depth","sym","complex"].forEach(id=>$(id).oninput=()=>{labels();draw()})
+$("density").oninput=()=>{seed();labels();draw()}
+document.querySelectorAll(".freq").forEach(b=>b.onclick=()=>{freq=+b.dataset.f;labels();log("Frequency label set: "+freq+" Hz")})
+document.querySelectorAll("[data-view]").forEach(b=>b.onclick=()=>{document.querySelectorAll("[data-view]").forEach(x=>x.classList.remove("active"));b.classList.add("active");let v=b.dataset.view;$("protocolPanel").classList.toggle("hidden",v!=="protocol");$("modeText").textContent=v==="world"?"DMT WORLD":v.toUpperCase();log("Codex room: "+v)})
+$("capture").onclick=()=>{captureState=state();$("hashOut").textContent=JSON.stringify(captureState,null,2);log("State captured and frozen in session","ok")}
+$("hash").onclick=async()=>{if(!captureState){log("Capture state first","warn");return}let data=new TextEncoder().encode(JSON.stringify(captureState));let h=await crypto.subtle.digest("SHA-256",data);let hex=[...new Uint8Array(h)].map(x=>x.toString(16).padStart(2,"0")).join("");$("hashOut").textContent=hex;log("SHA-256 generated: "+hex,"ok")}
+$("analyze").onclick=()=>{let f=$("image").files[0];if(!f){log("No image selected","warn");return}let im=new Image();im.onload=()=>{let c=document.createElement("canvas"),w=160,h=Math.max(1,Math.round(160*im.height/im.width));c.width=w;c.height=h;let x=c.getContext("2d");x.drawImage(im,0,0,w,h);let d=x.getImageData(0,0,w,h).data,sum=0,sum2=0;for(let i=0;i<d.length;i+=4){let g=(d[i]+d[i+1]+d[i+2])/3;sum+=g;sum2+=g*g}let n=d.length/4,mean=sum/n,sd=Math.sqrt(Math.max(0,sum2/n-mean*mean));$("imageResult").innerHTML="<span>Image</span><b>"+f.name+"</b><span>Pixels sampled</span><b>"+n+"</b><span>Mean luminance</span><b>"+mean.toFixed(1)+"</b><span>Contrast σ</span><b>"+sd.toFixed(1)+"</b>";log("Image field analyzed: "+f.name,"ok")};im.src=URL.createObjectURL(f)}
+window.addEventListener("resize",resize);
+seed();labels();resize();log("ASIN DMT World engine initialized","ok");log("Protocol loaded: ASIN-DMW-0.1");log("Ontology lock: visualization ≠ evidence");
+})();
+</script>
+</body>
+</html>
