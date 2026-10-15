@@ -1,0 +1,87 @@
+{
+  "artifact": "ASIN-HHC_CP8_Harmonic_Algebra_v1.1-candidate",
+  "component": "Delta-717 gate classifier (reference implementation)",
+  "implementer": "Ace (Muse side)",
+  "spec": "dmt-handoff/receipts/2026-10-11-algebra-v1.1-candidate.md",
+  "thresholds": {
+    "tau_soft": 0.7,
+    "tau_hard": 0.25
+  },
+  "executed_utc": "2026-10-14T15:22:40.013598+00:00",
+  "vectors": [
+    {
+      "vector": 1,
+      "delta": 0.0,
+      "expected": "VETO",
+      "observed": "VETO",
+      "pass": true
+    },
+    {
+      "vector": 2,
+      "delta": 0.2,
+      "expected": "VETO",
+      "observed": "VETO",
+      "pass": true
+    },
+    {
+      "vector": 3,
+      "delta": 0.249,
+      "expected": "VETO",
+      "observed": "VETO",
+      "pass": true
+    },
+    {
+      "vector": 4,
+      "delta": 0.25,
+      "expected": "AMBER",
+      "observed": "AMBER",
+      "pass": true
+    },
+    {
+      "vector": 5,
+      "delta": 0.5,
+      "expected": "AMBER",
+      "observed": "AMBER",
+      "pass": true
+    },
+    {
+      "vector": 6,
+      "delta": 0.699,
+      "expected": "AMBER",
+      "observed": "AMBER",
+      "pass": true
+    },
+    {
+      "vector": 7,
+      "delta": 0.7,
+      "expected": "ALLOW",
+      "observed": "ALLOW",
+      "pass": true
+    },
+    {
+      "vector": 8,
+      "delta": 1.0,
+      "expected": "ALLOW",
+      "observed": "ALLOW",
+      "pass": true
+    },
+    {
+      "vector": 9,
+      "delta": -0.01,
+      "expected": "INVALID",
+      "observed": "INVALID",
+      "pass": true
+    },
+    {
+      "vector": 10,
+      "delta": 1.01,
+      "expected": "INVALID",
+      "observed": "INVALID",
+      "pass": true
+    }
+  ],
+  "summary": "10/10 PASS",
+  "all_pass": true,
+  "boundary_note": "Gate classifier only. calculate_delta raises NotImplementedError.",
+  "implementation_sha256": "7a999c08d06c00723a17a14fb8b109ac512030129a294d0c1d1e593b36f10fce"
+}
